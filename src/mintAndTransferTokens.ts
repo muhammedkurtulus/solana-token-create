@@ -1,11 +1,15 @@
 import * as splToken from "@solana/spl-token";
 import * as web3 from "@solana/web3.js";
+import { initializeKeypair } from "./initializeKeypair";
 
+/*
 const PRIVATE_KEY = [
   0, //Your private key
 ];
 const shopKey = new Uint8Array(PRIVATE_KEY);
 const shopKeypair = web3.Keypair.fromSecretKey(shopKey);
+*/
+
 const tokenAddress = new web3.PublicKey(
   "7B5muYPjzP9mCKW1dFejDMEJN8McPEkNmr16EvCqCo7R"
 );
@@ -22,6 +26,9 @@ const amount = 1000000;
     web3.clusterApiUrl("devnet"),
     "confirmed"
   );
+
+  //If you don't want to use .env file , the comment line above can be used instead of this line
+  const shopKeypair = await initializeKeypair(connection);
 
   // Get the token account of the fromWallet address, and if it does not exist, create it
   const fromTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(
